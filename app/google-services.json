@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "318672977836",
+    "firebase_url": "https://database-b5b79.firebaseio.com",
+    "project_id": "database-b5b79",
+    "storage_bucket": "database-b5b79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318672977836:android:cbd7172fffe9ae19",
+        "android_client_info": {
+          "package_name": "com.example.naveen.feeds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318672977836-nndg3e3j55tcvvj2eengvt0toe48nbmo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJlo9bdPZ9lkoZr6iC1bHSea1lr5cqtco"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318672977836:android:210302656106afd5",
+        "android_client_info": {
+          "package_name": "com.example.nasa.hexcodecolor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318672977836-nndg3e3j55tcvvj2eengvt0toe48nbmo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJlo9bdPZ9lkoZr6iC1bHSea1lr5cqtco"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
