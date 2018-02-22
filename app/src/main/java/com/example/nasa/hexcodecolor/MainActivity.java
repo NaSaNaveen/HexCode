@@ -1,5 +1,7 @@
 package com.example.nasa.hexcodecolor;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
@@ -34,6 +37,20 @@ public class MainActivity extends AppCompatActivity
     String baseurl ="https://database-b5b79.firebaseio.com/";
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        itemarrayadapter.setOnItemClickListener(new ItemAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v)
+            {
+                Intent i = new Intent(MainActivity.this,Main2Activity.class);
+                Toast.makeText(MainActivity.this, "card clicked",Toast.LENGTH_SHORT).show();
+                startActivity(i);
+            }
+        });
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -46,6 +63,12 @@ public class MainActivity extends AppCompatActivity
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
 
+//to be removed
+        adapters.add(0,new HexAdapter("#159874"));
+        itemarrayadapter = new ItemAdapter(R.layout.card,adapters);
+        recyclerView.setAdapter(itemarrayadapter);
+//above this line
+
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,15 +78,18 @@ public class MainActivity extends AppCompatActivity
                 {
                     Toast.makeText(MainActivity.this, "Please Enter a Hex Color Code", Toast.LENGTH_SHORT).show();
                 }
-                else
+                else if(color.length()==6)
                 {
-                    adapters.add(0,new HexAdapter("#"+color));
+                    adapters.add(1,new HexAdapter("#"+color));
                     itemarrayadapter = new ItemAdapter(R.layout.card,adapters);
                     recyclerView.setAdapter(itemarrayadapter);
 
                     new MyTask().execute();
                 }
-//                img.setBackgroundColor(Color.parseColor("#"+color));
+                else
+                {
+                    Toast.makeText(MainActivity.this, "Requires a valid 6 digit HEX CODE", Toast.LENGTH_SHORT).show();
+                }
                 hexcode.setText(null);
             }
         });
@@ -76,13 +102,11 @@ public class MainActivity extends AppCompatActivity
         protected String doInBackground(String... strings) {
 
             fb_db = new Firebase(baseurl+"HexCode/");
-            fb_db.addListenerForSingleValueEvent(new ValueEventListener() {
+            fb_db.addListenerForSingleValueEvent(new ValueEventListener()
+            {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot)
                 {
-                    HexAdapter clr = new HexAdapter();
-                    clr.setColor(color);
-
                     fb_db = new Firebase(baseurl);
 
                     fb_db.child("Color").child("C"+colorcount).setValue(color);
