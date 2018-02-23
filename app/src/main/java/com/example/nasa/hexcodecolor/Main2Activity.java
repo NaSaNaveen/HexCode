@@ -1,9 +1,7 @@
 package com.example.nasa.hexcodecolor;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,10 +14,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Random;
 
 public class Main2Activity extends AppCompatActivity
@@ -54,6 +49,32 @@ public class Main2Activity extends AppCompatActivity
             public void onClick(View view)
             {
                 Toast.makeText(Main2Activity.this, "Image Clicked", Toast.LENGTH_SHORT).show();
+                String root = Environment.getExternalStorageDirectory().toString();
+                File myDir = new File(root + "/Qr_code_image");
+                myDir.mkdirs();
+                Random generator = new Random();
+                int n = 10000;
+                n = generator.nextInt(n);
+//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd");
+//                Date now = new Date();
+//                String fileName = formatter.format(now);
+
+                String fname = "Image-"+ n +".jpg";
+                File file = new File (myDir, fname);
+                if (file.exists ())
+                    file.delete ();
+                try
+                {
+                    Toast.makeText(Main2Activity.this, "Image Saved", Toast.LENGTH_SHORT).show();
+                    FileOutputStream out = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                    out.flush();
+                    out.close();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         });
     }
